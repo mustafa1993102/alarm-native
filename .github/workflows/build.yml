@@ -5,7 +5,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - run: unzip -o project.zip -d proj
+      - run: |
+          unzip -o project.zip -d proj
+          for z in fix*.zip; do [ -f "$z" ] && unzip -o "$z" -d proj; done
+          true
       - uses: actions/setup-java@v4
         with:
           distribution: temurin
