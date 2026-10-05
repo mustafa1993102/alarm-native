@@ -7,7 +7,15 @@ jobs:
       - uses: actions/checkout@v4
       - run: |
           unzip -o project.zip -d proj
-          for z in fix*.zip; do [ -f "$z" ] && unzip -o "$z" -d proj; done
+          mkdir -p proj/app/src/main/assets/quran_pages
+          for z in part*.zip; do
+            if [ -f "$z" ]; then
+              unzip -o "$z" -d proj/app/src/main/assets/quran_pages
+            fi
+          done
+          for z in fix*.zip; do
+            [ -f "$z" ] && unzip -o "$z" -d proj
+          done
           true
       - uses: actions/setup-java@v4
         with:
